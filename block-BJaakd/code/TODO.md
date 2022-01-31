@@ -2,38 +2,77 @@
 
 ```js
 // Your code
+let promise = new Promise((resolve , reject) =>{
+    setTimeout(resolve(()=> console.log("Promise Resolved!!")), 1000ms)
+}).then(()=>{
+    console.log(promise)
+})
 ```
 
 2. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch`
 
 ```js
 // Your code
+let promise2 = new Promise((resolve, reject) => {
+  reject(() => console.log("Promise Rejected!!"));
+})
+  .then(() => {
+    console.log("Promise Rejected");
+  })
+  .catch(() => {
+    console.log(promise2);
+  });
 ```
 
 3. Create another promise. Now have it reject with a value of `Rejected Promise!` without using `setTimeout`. Print the contents of the promise after it has been rejected by passing console.log to `.catch` and also use `.finally` to log message `Promise Settled!`.
 
 ```js
 // Your code
+let promise3 = new Promise((resolve , reject) =>{
+    setTimeout( reject(()=> console.log("Promise Rejected!!")), 1000ms)
+}).then(()=>{
+    console.log('Promise Rejected')
+}).catch(()=>{
+  console.log(promise3)
+}).finally(()=>{
+    console.log('Promise Settled!')
+})
 ```
 
 4. What will be the output of the code below.
 
 ```js
-console.log('A');
+console.log("A");
 
 // Asynchronous code finises in 0 seconds (Callback Queue)
-setTimeout(() => console.log('B'), 0); // callback queue
+setTimeout(() => console.log("B"), 0); // callback queue
 
 // A promise that resolves right away (Microtask Queue)
-Promise.resolve().then(() => console.log('C'));
+Promise.resolve().then(() => console.log("C"));
 
-console.log('D');
+console.log("D");
 ```
+
+output
+"A" 0ms
+"D" 0ms
+"C" 1ms
+"B" 1ms
 
 5. Write a function named `wait` that accepts `time` in ms returns a promise. The promise gets resolved after given time.
 
 ```js
 // Your code
+function wait(timeinms) {
+  let waitPromise = new Promise((resolve, reject) => {
+    setTimeout(
+      resolve(() => {
+        console.log("Promise Resolved!!");
+      }),
+      timeinms
+    );
+  });
+}
 ```
 
 6. Do the following:
@@ -47,6 +86,25 @@ console.log('D');
 
 ```js
 // Your code
+let newPromise = new Promise((resolve , reject)=>{
+    resolve(()=>{
+      console.log(21)
+    }).then((num)=>{
+       return num = num +10
+    }).then(()=>{
+        return num +100
+    }).then(()=>{
+        if(num>100){
+            console.log("Something Went wrong")
+        }
+    }).catch(()=>1{
+        reject(()=>{
+            console.log("Promise rejected!!")
+        })
+    })
+
+})
+
 ```
 
 7. Do the following:
